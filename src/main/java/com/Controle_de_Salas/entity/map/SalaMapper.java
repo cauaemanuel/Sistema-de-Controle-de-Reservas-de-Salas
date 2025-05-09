@@ -12,4 +12,6 @@ public interface SalaMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Sala updateFromDTO(@MappingTarget Sala sala, SalaDTO dto);
+
+    Sala fromDTO(SalaDTO sala);
 }

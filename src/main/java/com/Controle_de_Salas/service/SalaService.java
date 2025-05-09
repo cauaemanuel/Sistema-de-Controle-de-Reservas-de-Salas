@@ -17,21 +17,35 @@ public class SalaService {
     private SalaMapper mapper;
     private SalaRepository salaRepository;
 
+    public SalaService(SalaMapper mapper, SalaRepository salaRepository) {
+        this.mapper = mapper;
+        this.salaRepository = salaRepository;
+    }
+
     public List<Sala> listAll(){
         return salaRepository.findAll();
     }
 
-    public Sala findById(String id){
+    public Sala create(SalaDTO dto){
+        return mapper.fromDTO(dto);
+    }
 
+    public Sala findById(String id){
         var uuid = UUID.fromString(id);
         var sala = salaRepository.findById(uuid)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         return sala;
+    }
 
+    public void deleteById(String id){
+        var uuid = UUID.fromString(id);
+        var sala = salaRepository.findById(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        salaRepository.deleteById(uuid);
     }
 
     public Sala updateSala(SalaDTO dto, String id){
-
         var uuid = UUID.fromString(id);
         var sala = salaRepository.findById(uuid)
                 .orElseThrow(
@@ -39,6 +53,5 @@ public class SalaService {
 
         var updateSala = mapper.updateFromDTO(sala, dto);
         return salaRepository.save(updateSala);
-
     }
 }
