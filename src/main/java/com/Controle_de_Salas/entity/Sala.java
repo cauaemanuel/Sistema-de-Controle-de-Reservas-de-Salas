@@ -1,16 +1,14 @@
 package com.Controle_de_Salas.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_sala")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Data
