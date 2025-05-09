@@ -1,6 +1,8 @@
 package com.Controle_de_Salas.service;
 
 import com.Controle_de_Salas.entity.Sala;
+import com.Controle_de_Salas.entity.dto.SalaDTO;
+import com.Controle_de_Salas.entity.map.SalaMapper;
 import com.Controle_de_Salas.repository.SalaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.util.UUID;
 @Service
 public class SalaService {
 
+    private SalaMapper mapper;
     private SalaRepository salaRepository;
 
     public List<Sala> listAll(){
@@ -21,16 +24,21 @@ public class SalaService {
     public Sala findById(String id){
 
         var uuid = UUID.fromString(id);
-        var sala = salaRepository.findById(uuid);
-        if(sala.isPresent()){
-            return sala.get();
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
+        var sala = salaRepository.findById(uuid)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return sala;
 
     }
 
-    public Sala updateSala(){
+    public Sala updateSala(SalaDTO dto, String id){
+
+        var uuid = UUID.fromString(id);
+        var sala = salaRepository.findById(uuid)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        var updateSala = mapper.updateFromDTO(sala, dto);
+        return salaRepository.save(updateSala);
 
     }
 }
