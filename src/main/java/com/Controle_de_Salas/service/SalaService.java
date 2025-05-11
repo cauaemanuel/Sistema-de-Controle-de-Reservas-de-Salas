@@ -2,7 +2,7 @@ package com.Controle_de_Salas.service;
 
 import com.Controle_de_Salas.entity.Sala;
 import com.Controle_de_Salas.entity.dto.SalaDTO;
-import com.Controle_de_Salas.entity.map.SalaMapper;
+import com.Controle_de_Salas.entity.map.SalaFactory;
 import com.Controle_de_Salas.repository.SalaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,20 +14,25 @@ import java.util.UUID;
 @Service
 public class SalaService {
 
-    private SalaMapper mapper;
+
     private SalaRepository salaRepository;
 
-    public SalaService(SalaMapper mapper, SalaRepository salaRepository) {
-        this.mapper = mapper;
+    public SalaService(SalaRepository salaRepository) {
         this.salaRepository = salaRepository;
     }
 
-    public List<Sala> listAll(){
-        return salaRepository.findAll();
+    public List<SalaDTO> listAll(){
+        var salas = salaRepository.findAll().stream()
+                .map(p -> SalaFactory.fromSala(p)).toList();
+        if(salas.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+        }
+        return salas;
     }
 
     public Sala create(SalaDTO dto){
-        return mapper.fromDTO(dto);
+       var sala =  SalaFactory.fromDTO(dto);
+       return salaRepository.save(sala);
     }
 
     public Sala findById(String id){
@@ -51,7 +56,7 @@ public class SalaService {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        var updateSala = mapper.updateFromDTO(sala, dto);
+        var updateSala = SalaFactory.updateFromDTO(sala, dto);
         return salaRepository.save(updateSala);
     }
 }

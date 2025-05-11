@@ -17,6 +17,8 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(unique = true)
+    private String nome;
     private Integer capacidadeMaxima;
     private String localizacao;
 
