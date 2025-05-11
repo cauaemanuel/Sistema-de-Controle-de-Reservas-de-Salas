@@ -7,8 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record ReservaDTO(@NotBlank String idSala,
-                         @NotBlank String nomeResponsavel,
+public record ReservaDTO(@NotBlank String nomeResponsavel,
                          @NotNull
                          @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
                          LocalDateTime dataDeInicio,
