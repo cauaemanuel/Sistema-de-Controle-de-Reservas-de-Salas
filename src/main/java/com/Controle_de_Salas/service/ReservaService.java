@@ -19,8 +19,9 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
     private SalaRepository salaRepository;
 
-    public ReservaService(ReservaRepository reservaRepository) {
+    public ReservaService(ReservaRepository reservaRepository, SalaRepository salaRepository) {
         this.reservaRepository = reservaRepository;
+        this.salaRepository = salaRepository;
     }
 
     public Reserva createReserva(String idSala, ReservaDTO dto){
@@ -31,7 +32,6 @@ public class ReservaService {
         if (dto.dataDeTermino().isBefore(dto.dataDeInicio())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data de término não pode ser antes da data de início");
         }
-
         if (dto.dataDeTermino().isBefore(LocalDateTime.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data de término não pode estar no passado");
         }
@@ -72,6 +72,5 @@ public class ReservaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva nao foi encontrada"));
         reservaRepository.delete(reserva);
     }
-
 
 }

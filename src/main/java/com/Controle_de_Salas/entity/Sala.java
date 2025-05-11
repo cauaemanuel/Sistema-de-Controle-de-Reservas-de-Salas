@@ -1,5 +1,6 @@
 package com.Controle_de_Salas.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Sala {
     private String nome;
 
     @OneToMany(mappedBy = "sala")
+    @JsonIgnore
     private List<Reserva> reservas;
 
     private Integer capacidadeMaxima;
