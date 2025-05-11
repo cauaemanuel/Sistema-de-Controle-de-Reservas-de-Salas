@@ -1,9 +1,7 @@
 package com.Controle_de_Salas.entity;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +18,6 @@ public class Reserva {
 
     private String nomeResponsavel;
 
-    private LocalDate dataDeInicio;
-    private LocalDate dataDeTermino;
+    private LocalDateTime dataDeInicio;
+    private LocalDateTime dataDeTermino;
 }
