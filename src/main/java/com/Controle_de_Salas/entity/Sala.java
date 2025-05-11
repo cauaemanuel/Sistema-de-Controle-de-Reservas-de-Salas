@@ -3,6 +3,7 @@ package com.Controle_de_Salas.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,6 +20,10 @@ public class Sala {
     private UUID id;
     @Column(unique = true)
     private String nome;
+
+    @OneToMany(mappedBy = "sala")
+    private List<Reserva> reservas;
+
     private Integer capacidadeMaxima;
     private String localizacao;
 

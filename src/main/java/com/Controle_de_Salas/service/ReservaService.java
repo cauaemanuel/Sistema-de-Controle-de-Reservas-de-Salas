@@ -7,4 +7,10 @@ import org.springframework.stereotype.Service;
 public class ReservaService {
 
     private ReservaRepository reservaRepository;
+
+    public ReservaService(ReservaRepository reservaRepository) {
+        this.reservaRepository = reservaRepository;
+    }
+
+
 }

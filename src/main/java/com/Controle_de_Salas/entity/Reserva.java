@@ -14,6 +14,10 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "sala_id")
+    private Sala sala;
+
     private String nomeResponsavel;
 
     private LocalDate dataDeInicio;
