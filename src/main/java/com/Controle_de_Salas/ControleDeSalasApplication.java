@@ -2,8 +2,10 @@ package com.Controle_de_Salas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableScheduling
 public class ControleDeSalasApplication {
 
 	public static void main(String[] args) {

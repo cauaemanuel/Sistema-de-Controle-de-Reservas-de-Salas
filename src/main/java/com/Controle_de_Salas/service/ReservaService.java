@@ -73,4 +73,7 @@ public class ReservaService {
         reservaRepository.delete(reserva);
     }
 
+    public void checkAndRemove(LocalDateTime dateTime) {
+        reservaRepository.checkAndRemove(dateTime);
+    }
 }
