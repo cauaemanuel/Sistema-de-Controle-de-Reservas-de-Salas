@@ -61,11 +61,11 @@ public class ReservaService {
 
         UUID uuid = UUID.fromString(idSala);
         var sala = salaRepository.findById(uuid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sala não encontrada; Verifique o ID"));
         var list = reservaRepository.findBySalaId(sala.getId());
 
         if(list.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Essa Sala nao tem reserva");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Essa Sala não tem reserva");
         }
         return list.stream().map( p -> ReservaFactory.fromEntity(p)).toList();
     }
@@ -75,7 +75,7 @@ public class ReservaService {
     public void cancelarReserva(String id){
         var uuid = UUID.fromString(id);
         var reserva = reservaRepository.findById(uuid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reserva nao foi encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A Reserva não foi encontrada; Verifique o ID"));
         reservaRepository.delete(reserva);
     }
 

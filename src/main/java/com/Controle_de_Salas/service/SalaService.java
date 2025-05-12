@@ -41,7 +41,7 @@ public class SalaService {
     public Sala findById(String id){
         var uuid = UUID.fromString(id);
         var sala = salaRepository.findById(uuid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A Sala não foi encontrada; Verifique o ID"));
         return sala;
     }
 
@@ -49,7 +49,7 @@ public class SalaService {
     public void deleteById(String id){
         var uuid = UUID.fromString(id);
         var sala = salaRepository.findById(uuid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "A Sala não foi encontrada; Verifique o ID"));
 
         salaRepository.deleteById(uuid);
     }
@@ -59,7 +59,7 @@ public class SalaService {
         var uuid = UUID.fromString(id);
         var sala = salaRepository.findById(uuid)
                 .orElseThrow(
-                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Id invalido"));
 
         var updateSala = SalaFactory.updateFromDTO(sala, dto);
         return salaRepository.save(updateSala);
