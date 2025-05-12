@@ -5,6 +5,7 @@ import com.Controle_de_Salas.entity.dto.ReservaDTO;
 import com.Controle_de_Salas.entity.map.ReservaFactory;
 import com.Controle_de_Salas.repository.ReservaRepository;
 import com.Controle_de_Salas.repository.SalaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,6 +25,7 @@ public class ReservaService {
         this.salaRepository = salaRepository;
     }
 
+    @Transactional
     public Reserva createReserva(String idSala, ReservaDTO dto){
         UUID uuid = UUID.fromString(idSala);
         var sala = salaRepository.findById(uuid)
@@ -34,6 +36,9 @@ public class ReservaService {
         }
         if (dto.dataDeTermino().isBefore(LocalDateTime.now())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data de término não pode estar no passado");
+        }
+        if (dto.dataDeInicio().isBefore(LocalDateTime.now())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Data de inicio não pode estar no passado");
         }
 
         var reserva = ReservaFactory.fromDTO(dto);
@@ -66,6 +71,7 @@ public class ReservaService {
     }
 
 
+    @Transactional
     public void cancelarReserva(String id){
         var uuid = UUID.fromString(id);
         var reserva = reservaRepository.findById(uuid)
@@ -73,7 +79,4 @@ public class ReservaService {
         reservaRepository.delete(reserva);
     }
 
-    public void checkAndRemove(LocalDateTime dateTime) {
-        reservaRepository.checkAndRemove(dateTime);
-    }
 }

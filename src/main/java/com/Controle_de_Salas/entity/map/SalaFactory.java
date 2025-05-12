@@ -7,14 +7,14 @@ public class SalaFactory {
     public static Sala fromDTO(SalaDTO dto) {
         var sala =  new Sala();
         sala.setLocalizacao(dto.localizacao());
-        sala.setCapacidadeMaxima(dto.capcidadeMaxima());
+        sala.setCapacidadeMaxima(dto.capacidadeMaxima());
         sala.setNome(dto.nome());
         return sala;
     }
 
     public static Sala updateFromDTO(Sala sala, SalaDTO dto) {
-        if(dto.capcidadeMaxima() != null){
-            sala.setCapacidadeMaxima(dto.capcidadeMaxima());
+        if(dto.capacidadeMaxima() != null){
+            sala.setCapacidadeMaxima(dto.capacidadeMaxima());
         }
 
         if (dto.localizacao() != null){

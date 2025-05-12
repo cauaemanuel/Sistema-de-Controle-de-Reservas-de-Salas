@@ -1,5 +1,6 @@
 package com.Controle_de_Salas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "sala_id")
+    @JsonBackReference
     private Sala sala;
 
     private String nomeResponsavel;

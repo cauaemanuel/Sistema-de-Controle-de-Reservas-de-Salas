@@ -1,6 +1,7 @@
 package com.Controle_de_Salas.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,11 +20,12 @@ public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @Column(unique = true)
     private String nome;
 
     @OneToMany(mappedBy = "sala")
-    @JsonIgnore
+    @JsonManagedReference
     private List<Reserva> reservas;
 
     private Integer capacidadeMaxima;
