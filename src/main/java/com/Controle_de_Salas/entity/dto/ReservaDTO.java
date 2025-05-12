@@ -18,5 +18,4 @@ public record ReservaDTO(
         @NotNull(message = "A data de término é obrigatória.")
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         LocalDateTime dataDeTermino
-
 ) {}

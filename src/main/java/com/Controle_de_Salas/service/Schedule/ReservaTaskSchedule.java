@@ -23,7 +23,7 @@ public class ReservaTaskSchedule {
         this.reservaRepository = reservaRepository;
     }
 
-    public void checkAndRemove(LocalDateTime dateTime) {
+    private void checkAndRemove(LocalDateTime dateTime) {
         reservaRepository.checkAndRemove(dateTime);
     }
 

@@ -16,7 +16,6 @@ public class SalaFactory {
         if(dto.capacidadeMaxima() != null){
             sala.setCapacidadeMaxima(dto.capacidadeMaxima());
         }
-
         if (dto.localizacao() != null){
             sala.setLocalizacao(dto.localizacao());
         }
